@@ -87,8 +87,8 @@ def combined(approach: str):
         - error handling
         - "exists one successful processing" programming model
         Softwares:
-        - MapReduce (Jeff Dean, apache_beam)
-        - Spark (Berkeley, apache_spark)
+        - MapReduce (Dean & Ghemawat, 2004; apache_beam)
+        - Spark (Zaharia et al, 2014; apache_spark)
         """)
         print(note)
     else:

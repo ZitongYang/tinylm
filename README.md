@@ -3,7 +3,8 @@
 
 ## Prelude: few-shot learning
 > Reservoir of machine learnable knowledge: 95% unsupervised learning and 5% supervision.
-#### An intriguing phenomenon around 2017
+
+#### An intriguing phenomenon around 2016+
 Problem setup:
 - Image classification task with logistic loss
 - Goal: train neural network to classify `cat` vs. `dog`
@@ -26,7 +27,7 @@ Approach II:
 - In this *activated* state, the model is able to learn the task with a few samples.
 
 #### How is this picked up by the community?
-- Representation learning, searching for weaker forms of supervision (e.g., Hinton's SimCLR)
+- Representation learning, searching for weaker forms of supervision (e.g., SimCLR)
 - Claim: the GPT-3 revolution is foreshadowed by this phenomenon
 
 ## Outline
@@ -37,11 +38,11 @@ Approach II:
         - System design concepts
     - Architecture comments
 - Posttraining (training on cat/dog images)
-    - Instruction tuning
-    - Trainer
-- Evaluation (can model distinguish cat vs. dog?)
-    - Human evaluation
+    - Instruction following dataset
+    - Supervised finetuning
 - Final remarks
+    - Evaluation (can model distinguish cat vs. dog?)
+    - Take-home message
 
 ## Pretraining
 > Prepares the model in an *activated* state that can be efficiently adapted to new tasks.
@@ -65,9 +66,9 @@ Idea: internet is a directed graph. Crawlers try to traverse the graph as much a
 - A lot of opportunities for algorithmic and statistical advancement: joint search and ranking.
 
 #### System design concepts
-- Streaming
-- Parallelism
-- Combined
+- Streaming[[code]](pretrain.py#L8)
+- Parallelism[[code]](pretrain.py#L25)
+- Combined[[code]](pretrain.py#L56)
 
 #### Architecture comments
 Variation of transformer architecture exists. Notably,
@@ -79,12 +80,12 @@ Variation of transformer architecture exists. Notably,
 System consideration:
 - Kernel optimization
 - Mixed precision
-- Falut tolerance
+- Fault tolerance
 - Checkpointing
 - Gradient accumulation
 - ...
 
-As a product of pretraining, we get a text completion model
+As a product of pretraining, we get a text completion model[[code]](decoding.py#L10)
 ```
 LM("The captial of France is") -> "Paris"
 ```
@@ -92,7 +93,7 @@ LM("The captial of France is") -> "Paris"
 ## Posttraining
 > Ultimately, we want model to answer to user instructions. For example LM("What is the capital of France?") -> "Paris".
 
-### Instruction tuning
+### Instruction following dataset
 Two stage process
 - Query curation `x`: how to generate truly diverse instructions?
     - Iterate through the pretraining data
@@ -100,3 +101,30 @@ Two stage process
 - Human annotation `y`: how to teach model the desired behavior?
     - Ask human annotators to respond to the query
 
+Finally, prepare the dataset in a chat template[[code]](dataloader.py#L30).
+
+### Supervised finetuning
+Perform next-token prediction on the instruction following dataset [[code]](train.py#L26).
+
+## Final remarks
+
+### Evaluation
+- Early days (Breiman's second culture), held-out test set. Train on $L_n(\theta)$ and evaluate on $\mathbb{E}[L_1(\theta)]$
+- Current practice, held-out "task". Pretrain on internet text, finetune on instruction following dataset and test on SAT, ACT, AIME, IMO, etc.
+- Future, language model are fundementally products (e.g, cars, phones, etc). They should be evaluated based on user experience in the same way any other commodities are evaluated (e.g., mpg, engine size, etc.).
+
+### Take-home message
+> Pretraining is regularization
+
+Linear regression:
+$$
+\min_{\theta} \|X\theta-y\|^2+ \lambda \|\theta\|^2
+$$
+Language model:
+$$
+\min_{\theta} L_{\text{instruction-following}}(\theta) + \lambda L_{\text{internet-texts}}(\theta)
+$$
+
+In words,
+- Directly performing instruction following (which is ultimately what we want), the LM overfits to the instruction set.
+- Pretraining regularizes the space of transformer weights to be around natural language, making it easier to generalize to new instructions.
