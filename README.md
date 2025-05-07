@@ -37,8 +37,7 @@ Approach II:
         - System design concepts
     - Architecture comments
 - Posttraining (training on cat/dog images)
-    - Instruction tuning data
-        - Human annotation
+    - Instruction tuning
     - Trainer
 - Evaluation (can model distinguish cat vs. dog?)
     - Human evaluation
@@ -92,4 +91,12 @@ LM("The captial of France is") -> "Paris"
 
 ## Posttraining
 > Ultimately, we want model to answer to user instructions. For example LM("What is the capital of France?") -> "Paris".
+
+### Instruction tuning
+Two stage process
+- Query curation `x`: how to generate truly diverse instructions?
+    - Iterate through the pretraining data
+    - Ask human annotator to design querys that would have the given pretraining query as output
+- Human annotation `y`: how to teach model the desired behavior?
+    - Ask human annotators to respond to the query
 
