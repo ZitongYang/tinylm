@@ -1,6 +1,5 @@
 from vllm import LLM, SamplingParams
 
-
 def get_model():
     model = LLM(model="Qwen/Qwen3-4B-Base",
                 tokenizer="Qwen/Qwen3-4B-Base",

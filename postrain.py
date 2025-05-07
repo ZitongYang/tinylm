@@ -51,8 +51,8 @@ def process(example: Dict, tokenizer: AutoTokenizer, max_length: int = 512)->Dic
     else:
         return dict(ids=[], len=0)
 
-def tokenize_openhermes():
-    filename = f'openhermes.bin'
+def tokenize_postrain():
+    filename = f'postrain.bin'
     if os.path.exists(filename):
         print(f'{filename} already exists')
     else:
@@ -72,5 +72,5 @@ def tokenize_openhermes():
         _write_memmap(tokenized_train, filename)
 
 if __name__ == '__main__':
-    # Writing to openhermes.bin with length 396749824
-    tokenize_openhermes()
+    # Writing to postrain.bin with length 396749824
+    tokenize_postrain()
