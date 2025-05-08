@@ -8,7 +8,7 @@ from functools import partial
 def streaming():
     """
     Pretraining dataset is huge, e.g. 15T tokens.
-    There is no way to load it into any memory or event disk.
+    There is no way to load it into any memory or even disk.
     Need some form of streaming processing.
     """
     ds = load_dataset("mlfoundations/dclm-baseline-1.0-parquet",

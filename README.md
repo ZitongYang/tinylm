@@ -97,7 +97,7 @@ LM("The captial of France is") -> "Paris"
 Two stage process
 - Query curation `x`: how to generate truly diverse instructions?
     - Iterate through the pretraining data
-    - Ask human annotator to design querys that would have the given pretraining query as output
+    - Ask human annotator to design querys that would have the given pretraining document as output
 - Human annotation `y`: how to teach model the desired behavior?
     - Ask human annotators to respond to the query
 
