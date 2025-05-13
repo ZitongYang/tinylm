@@ -118,15 +118,11 @@ Perform next-token prediction on the instruction following dataset [[code]](trai
 
 Linear regression:
 
-$
-\min_{\theta} \|X\theta-y\|^2+ \lambda \|\theta\|^2
-$
+$\min_{\theta} \|X\theta-y\|^2+ \lambda \|\theta\|^2$
 
 Language model:
 
-$
-\min_{\theta} L_{\text{instruction-following}}(\theta) + \lambda L_{\text{internet-texts}}(\theta)
-$
+$\min_{\theta} L_{\text{instruction-following}}(\theta) + \lambda L_{\text{internet-texts}}(\theta)$
 
 In words,
 - Directly performing instruction following (which is ultimately what we want), the LM overfits to the instruction set.
