@@ -10,7 +10,7 @@ def get_model():
 def decoding(model, prompt):
     # Set up sampling parameters
     sampling_params = SamplingParams(
-                    temperature=0.7,
+                    temperature=0.0,
                     max_tokens=100,
                     skip_special_tokens=False)
     outputs = model.generate(prompt, sampling_params)
@@ -22,6 +22,7 @@ if __name__ == "__main__":
     prompt = "The captial of France is"
     print(f"Prompt: {prompt}\n",
           "="*100,
+          "\n"
           f"Output: {decoding(model, prompt)}")
 
 

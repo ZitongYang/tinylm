@@ -61,7 +61,7 @@ def combined(approach: str):
     # Sharding
     ['today...', 'hello...', 'world...', 'statistics...', ...]
     --------shard 1--------   ------------shard 2-------------
-    1.  Split the dataset into N shards
+    1.  Split the dataset into N shards (need some metadata information)
     2.  Process each shard with a different process
     3.  Merge the shards at the end
     """
@@ -95,7 +95,7 @@ def combined(approach: str):
         raise ValueError(f"Invalid approach: {approach}")
 
 if __name__ == "__main__":
-    streaming()
+    # streaming()
     # parallelism()
     # combined(approach="sharding")
-    # combined(approach="interleave")
+    combined(approach="interleave")

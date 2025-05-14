@@ -11,7 +11,7 @@ Problem setup:
 
 Approach I:
 - Collect all `(image, label)` pair whose label is `cat` or `dog`
-- Performn standard training pipeline
+- Perform standard training pipeline
 - Needs 5,000 samples to get good accuracy on `cat` vs. `dog`
 
 Approach II:
